@@ -1,9 +1,8 @@
-# image 2c1762987ca7, wut 7495a99
-FROM wiiuwut/core:latest
+FROM wiiuenv/devkitppc:20220806
 
-# image 2644eca7f89d, Maschell/WiiUPluginSystem e9ea643, last known 0.1 build
-COPY --from=wups/core:latest /opt/devkitpro/wups /opt/devkitpro/wups
-COPY --from=wiiuwut/libutils:0.1 /artifacts $WUT_ROOT
+COPY --from=wiiuenv/libkernel:20220724 /artifacts $DEVKITPRO
+COPY --from=wiiuenv/libmocha:20220831 /artifacts $DEVKITPRO
+COPY --from=wiiuenv/wiiupluginsystem:20220826 /artifacts $DEVKITPRO
 
 WORKDIR /app
-CMD make -j$(nproc)
+CMD make -f Makefile -j$(nproc)
