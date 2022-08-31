@@ -8,10 +8,12 @@ jobs:
         steps:
             - uses: actions/checkout@v2
             - name: build toolchain container
-              run: docker build . -t builder
+              run: |
+                docker build . -t builder
+                docker build -f .github/workflows/Dockerfile.bear -t bear
             - uses: ammaraskar/gcc-problem-matcher@master
             - name: build Inkay
-              run: docker run --rm -v ${PWD}:/app -w /app builder
+              run: docker run --rm -v ${PWD}:/app -w /app bear
             - uses: actions/upload-artifact@master
               with:
                   name: inkay
