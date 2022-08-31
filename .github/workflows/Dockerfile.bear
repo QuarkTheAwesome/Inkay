@@ -1,5 +1,5 @@
 FROM builder
 
-RUN apt-get update && apt install -y bear
+RUN apt-get update && apt-get install -y bear
 
-CMD bear "make -f Makefile -j$(nproc)"
+CMD bear make -f Makefile -j$(nproc)
